@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {render} from 'react-dom';
 import {  BrowserRouter as Router , Route} from 'react-router-dom';
 import HomePage from './home/HomePage';
@@ -6,6 +6,7 @@ import Header from './common/Header';
 import AboutPage from './about/AboutPage';
 import CoursesPage from './course/CoursesPage';
 import ManageCoursePage from './course/ManageCoursePage';
+import {connect} from 'react-redux';
 
 class App extends React.Component{
 
@@ -13,7 +14,9 @@ class App extends React.Component{
     return (
       <Router>
         <div className="container-fluid">
-          <Header/>
+
+          <Header loading={this.props.loading}/>
+
           <Route exact path="/" component={HomePage}/>
           <Route path="/about" component={AboutPage}/>
           <Route exact path="/courses" component={CoursesPage}/>
@@ -23,7 +26,16 @@ class App extends React.Component{
       </Router>
     );
   }
-
 }
 
-export default App;
+App.propTypes = {
+  loading : PropTypes.bool.isRequired
+};
+
+function mapStateToProps(state, ownProps) {
+  return {
+    loading: state.ajaxCallsInProgress > 0
+  };
+}
+
+export default connect(mapStateToProps)(App);

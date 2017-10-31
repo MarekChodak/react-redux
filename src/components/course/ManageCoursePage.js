@@ -52,6 +52,7 @@ class ManageCoursePage extends React.Component {
 
 ManageCoursePage.propTypes = {
   course: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
   authors: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired
 };
